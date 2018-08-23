@@ -2,7 +2,7 @@
 A module for controlling Athena
 
 Usage Examples:
-    - "Athena stop"
+    - "Alfred stop"
     - "Enable Google"
 """
 
@@ -14,7 +14,7 @@ from athena import brain, log
 class QuitTask(ActiveTask):
 
     def __init__(self):
-        super(QuitTask, self).__init__(patterns=[r'\b(athena )?(quit|stop)\b.*'])
+        super(QuitTask, self).__init__(patterns=[r'\b(alfred )?(quit|stop)\b.*'])
 
     def action(self, text):
         brain.inst.quit()
