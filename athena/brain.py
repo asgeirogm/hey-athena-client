@@ -1,16 +1,22 @@
 """
-    The "Brain" class handles most of Hey Athena's processing.
-    To listen for input, use ``brain.inst.run()``
+The "Brain" class handles most of Hey Athena's processing.
+To listen for input, use ``brain.inst.run()``
 """
+from __future__ import print_function
 
 import traceback
 import os
-import yaml
 import re
+import yaml
 
-from athena import settings, stt, tts, apis, mods
+from athena import settings, stt, tts, apis, mods, log
 
 inst = None
+
+try:
+    input = raw_input  # Python 2 fix
+except NameError:
+    pass
 
 
 def init():
@@ -18,20 +24,21 @@ def init():
     inst = Brain()
 
 
-class Brain():
-    def __init__(self):
+class Brain:
+    def __init__(self, greet_user=True):
         """
-            First look for and initialize APIs in the "api_library" folder.
-            Then prompt the user to log in.
-            Next verify that the user's .yml file is configured for each API.
-            If an API's required configuration variables are not found,
-            then the API is disabled.
-            Next it finds and loads modules in the "modules" folder.
-            Lastly, it initializes the STT engine.
+        First look for and initialize APIs in the "api_library" folder.
+        Then prompt the user to log in.
+        Next verify that the user's .yml file is configured for each API.
+        If an API's required configuration variables are not found,
+        then the API is disabled.
+        Next it finds and loads modules in the "modules" folder.
+        Lastly, it initializes the STT engine.
 
-            Use "from athena.apis import api_lib" & "api_lib['(api_name_key)']"
-            to access instances of APIs.
+        Use "from athena.apis import api_lib" & "api_lib['(api_name_key)']"
+        to access instances of APIs.
         """
+
         apis.find_apis()
         self.login()
 
@@ -41,8 +48,10 @@ class Brain():
         mods.find_mods()
         mods.list_mods()
 
-        self.greet()
+        if greet_user:
+            self.greet()
         stt.init()
+        tts.init()
 
         self.quit_flag = False
 
@@ -61,7 +70,7 @@ class Brain():
         self.find_users()
         if not self.users:
             print('~ No users found. Please create a new user.\n')
-            import athena.config as cfg
+            import athena.user_config as cfg
             cfg.generate()
             self.find_users()
 
@@ -69,9 +78,10 @@ class Brain():
         """ Load (username).yml data into the user """
         with open(os.path.join(settings.USERS_DIR, username+'.yml'), 'r') as f:
             self.user = yaml.load(f)
-            print('\n~ Logged in as: '+self.user['user_api']['username'])
+            log.debug('Logged in as: '+self.user['user_api']['username'])
 
     def login(self):
+        """ Prompts a user to login (if more than one available) """
         self.verify_user_exists()
         if len(self.users) == 1:
             self.load_user(self.users[0])
@@ -155,7 +165,7 @@ class Brain():
         for mod in mods:
             if re.search('^.*\\b'+mod.name+'\\b.*$',  mod_select, re.IGNORECASE):
                 return mod
-        print('\n~ No module name found.\n')
+        log.info('No module name found.')
 
     def match_mods(self, text):
         """ Attempts to match a modules and their tasks """
@@ -181,7 +191,7 @@ class Brain():
         text = input('Continue? (Y/N) ')
         # response = stt.active_listen()
         if 'y' in text.lower():
-            print(traceback.format_exc())
+            log.error(traceback.format_exc())
 
     def quit(self):
         self.quit_flag = True
@@ -198,23 +208,25 @@ class Brain():
                 else:
                     text = input('> ')
                 if not text:
-                    print('\n~ No text input received.\n')
+                    log.info('No text input received.')
                     continue
+                else:
+                    log.info("'"+text+"'")
 
                 self.match_mods(text)
                 self.execute_mods(text)
             except OSError as e:
                 if 'Invalid input device' in str(e):
-                    print(settings.NO_MIC+'\n')
+                    log.error(settings.NO_MIC+'\n')
                     settings.USE_STT = False
                     continue
                 else:
                     raise Exception
-            except EOFError:
-                print('\n\n~ Shutting down...')
+            except (EOFError, KeyboardInterrupt):
+                log.info('Shutting down...')
                 break
             except:
-                print("(runtime error)")
+                log.error("(runtime error)")
                 self.error()
 
-        print('\n~ Arrivederci.')
+        log.info('Arrivederci.')

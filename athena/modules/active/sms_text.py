@@ -1,9 +1,8 @@
 """
-    Uses the external IP to find geographical info
+Uses the SMS API to send texts to your phone
 
-    Usage Examples:
-        - "What time is it?"
-        - "Where am I?"
+Usage Examples:
+    - "text What's up"
 """
 
 import re
@@ -17,7 +16,7 @@ from athena import settings
 class SendTextTask(ActiveTask):
 
     def __init__(self):
-        super().__init__(patterns=[r'.*\btext (.*)'])
+        super(SendTextTask, self).__init__(patterns=[r'.*\btext (.*)'])
         self.groups = {1: 'msg'}
 
     def match(self, text):
@@ -36,7 +35,7 @@ class SendTextTask(ActiveTask):
             num = num_match.group(1).replace('(', '').replace(')', '').replace('-', '')
             self.msg = num_match.group(3)
 
-        self.msg += ' - sent from Hey Athena'
+        self.msg += ' - from Athena'
         api_lib['sms_text_api'].send_text(self.msg, num)
 
 
@@ -44,4 +43,4 @@ class SmsText(Module):
 
     def __init__(self):
         tasks = [SendTextTask()]
-        super().__init__('sms_text', tasks, priority=3)
+        super(SmsText, self).__init__('sms_text', tasks, priority=3)

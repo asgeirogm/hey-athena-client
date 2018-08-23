@@ -1,18 +1,29 @@
 """
 Tools to automate browsing (requires Firefox)
 """
-import urllib.parse as up
+try:
+    from urllib.parse import quote_plus  # Python 3
+except ImportError:
+    from urllib import quote_plus        # Python 2
+
 import os
 import traceback
 
+from sys import platform as _platform
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 
 from athena.classes.api import Api
-from athena import settings
+from athena import settings, log
 
 GOOGLE_URL = 'https://www.google.com/search?gs_ivs=1&q='
-OS_KEY = Keys.CONTROL  # Mac users must change to Keys.COMMAND
+
+OS_KEY = Keys.CONTROL
+if _platform == "darwin":
+    OS_KEY = Keys.COMMAND  # use CMD key for Mac
+NW_TAB = OS_KEY+'n'  # new tab
+CL_TAB = OS_KEY+'w'  # close tab
+SW_TAB = OS_KEY+Keys.TAB  # switch tab
 
 
 class VoiceBrowseApi(Api):
@@ -24,7 +35,8 @@ class VoiceBrowseApi(Api):
     def open(self, url=None, new_tab=False):
         if not self.driver:
             try:
-                # print(settings.CHROME_DRIVER, os.path.isfile(settings.CHROME_DRIVER))
+                # print(settings.CHROME_DRIVER)
+                # print(os.path.isfile(settings.CHROME_DRIVER))
                 if not os.path.isfile(settings.CHROME_DRIVER):
                     raise Exception
                 self.driver = webdriver.Chrome(settings.CHROME_DRIVER)
@@ -33,19 +45,12 @@ class VoiceBrowseApi(Api):
                 self.driver = webdriver.Firefox()
         else:
             if new_tab:
-                print('\n~ Opening new tab...')
-                self.driver.find_element_by_tag_name('body').send_keys(OS_KEY+'t')
+                log.info('Opening new tab...')
+                self.driver.find_element_by_tag_name('body').send_keys(NW_TAB)
         if url:
             if not url[0:4] == 'http':
                 url = 'https://'+url.replace(' ', '')
             self.driver.get(url)
-            if 'facebook.com' in url:
-                self.driver.find_element_by_id('email').clear()
-                self.driver.find_element_by_id('email').send_keys(settings.FB_USER)
-
-                self.driver.find_element_by_id('pass').clear()
-                self.driver.find_element_by_id('pass').send_keys(settings.FB_PASS)
-                self.driver.find_element_by_id('pass').submit()
 
     def close(self):
         if self.driver:
@@ -54,24 +59,24 @@ class VoiceBrowseApi(Api):
 
     def close_tab(self):
         if self.driver:
-            self.driver.find_element_by_tag_name('body').send_keys(OS_KEY+'w')
+            self.driver.find_element_by_tag_name('body').send_keys(CL_TAB)
             try:
                 self.driver.current_url()
             except:
                 self.driver = None
-                print('\n~ Browser closed.')
+                log.debug('Browser was closed.')
 
     def switch_tab(self):
         if self.driver:
-            self.driver.find_element_by_tag_name('body').send_keys(OS_KEY+Keys.TAB)
+            self.driver.find_element_by_tag_name('body').send_keys(SW_TAB)
 
     def maximize(self):
         if self.driver:
             self.driver.maximize_window()
 
     def search(self, q):
-        print('\n~ Answering with Google...\n')
-        self.open(GOOGLE_URL+up.quote_plus(q), new_tab=False)
+        log.info('Answering with Google...')
+        self.open(GOOGLE_URL+quote_plus(q), new_tab=False)
 
     def clear(self):
         if self.driver:

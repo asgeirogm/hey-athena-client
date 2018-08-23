@@ -17,7 +17,7 @@ from athena.api_library import ifttt_api as ifttt
 class SendTweetTask(ActiveTask):
 
     def __init__(self):
-        super().__init__(patterns=[r'.*?\btweet (.+)',
+        super(SendTweetTask, self).__init__(patterns=[r'.*?\btweet (.+)',
                                    r'.*\bpost (.+)\bto twitter\b',
                                    r'.*\bpost to twitter\b(.+)'])
 
@@ -25,7 +25,7 @@ class SendTweetTask(ActiveTask):
         return self.match_and_save_groups(text, {1: 'tweet'})
 
     def action(self, text):
-        self.tweet += ' - sent from Hey Athena'
+        self.tweet += ' - from Athena'
         print('\n~ Tweet: '+self.tweet)
         self.speak('Sending tweet... ', show_text=True)
         ifttt.trigger('voice_tweet', self.tweet)
@@ -35,4 +35,4 @@ class Twitter(Module):
 
     def __init__(self):
         tasks = [SendTweetTask()]
-        super().__init__('twitter', tasks, priority=3)
+        super(Twitter, self).__init__('twitter', tasks, priority=3)

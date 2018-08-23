@@ -1,11 +1,12 @@
 *.json
 *.yml
-*.txt
 .credentials
 .pydevproject
 .project
 .settings
 .DS_Store
+.idea
+.pypirc
 
 !.travis.yml
 
@@ -23,6 +24,7 @@ env/
 build/
 develop-eggs/
 dist/
+docs/*.txt
 downloads/
 eggs/
 .eggs/

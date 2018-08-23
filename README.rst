@@ -1,18 +1,18 @@
 Hey Athena
 ==========
 
-|https://travis-ci.org/hey-athena/hey-athena-client.svg?branch=connor-branch|
-|PyPI version| |GitHub license|
+|Travis Build| |PyPI version| |GitHub license|
 
 Overview
 --------
 
-Your personal voice assistant. Written in Python 3.
+Your personal voice assistant. Written in Python.
 
 "Hey Athena" is a 100% open-source, modular voice assistant framework. We aim to do everything that Siri, Cortana, and Echo can do - and more.
 
 | **Website:** https://heyathena.com
 | **Documentation:** https://heyathena.com/docs/
+| **Forum:** https://heyathena.com/forum/
 | **GitHub:** https://github.com/hey-athena/hey-athena-client
 
 Usage Examples:
@@ -21,8 +21,7 @@ Say "Athena" *(wait for double beep)* then...
 
 -  "Play some music"
 -  "Text [Joe] [Wow, Hey Athena is so cool!]"
--  "Tweet [Hello world!]" (IFTTT key
-   required)
+-  "Tweet [Hello world!]" (IFTTT key required)
 -  "Define [artificial intelligence]"
 -  "Show me pictures of [Taj Mahal]"
 -  "Open facebook.com"
@@ -67,7 +66,7 @@ HTTP RESTful API
 We are currently developing a cloud-hosted RESTful API (JSON) service.
 Users will be able to send HTTP requests and receive a voice/text JSON response.  
 
-**Current:** ``https://heyathena.com/api/?q=test``
+**Current:** ``https://heyathena.com/api?q=test``
 
 **Future:** ``HTTP GET https://heyathena.com/api/{api_key}/q=list%20bitcoin%20price``  
 
@@ -82,14 +81,12 @@ How can I make my own Athena?
 
 Installation
 ------------
-- Windows users can use the `Windows Installer <https://raw.githubusercontent.com/hey-athena/hey-athena-client/demo-branch/tools/win_install_hey_athena.bat>`_ (batch script)
-- For installation notes, please use: https://heyathena.com/docs/intro/install.html
+For installation notes, please use: https://heyathena.com/docs/intro/install.html
 
 How can I help?
 ---------------
 
--  Write modules and contribute them by submitting a pull request to
-   this repository
+-  Write modules and contribute them by submitting a pull request to this repository
 -  Find errors and post issues
 -  If you modify the framework software, submit a pull request
 -  Give feedback and help us build a community!
@@ -116,13 +113,13 @@ priority is taken into account first, then task priority.
 
 .. code:: python
 
-	"""
-		File Name: hello_world.py
-		Finds and returns the latest bitcoin price
+    """
+    File Name: hello_world.py
+    Finds and returns the latest bitcoin price
 
-		Usage Examples:
-		- "What is the price of bitcoin?"
-		- "How much is a bitcoin worth?"
+    Usage Examples:
+    - "What is the price of bitcoin?"
+    - "How much is a bitcoin worth?"
 	"""
 
 	from athena.classes.module import Module
@@ -180,7 +177,7 @@ Common Errors
 | 
 | Other errors can be found by searching the issues on our GitHub page.
 
-.. |https://travis-ci.org/hey-athena/hey-athena-client.svg?branch=connor-branch| image:: https://travis-ci.org/hey-athena/hey-athena-client.svg?branch=connor-branch
+.. |Travis Build| image:: https://travis-ci.org/rcbyron/hey-athena-client.svg?branch=demo-branch
    :target: https://travis-ci.org/hey-athena/hey-athena-client
 .. |PyPI version| image:: https://badge.fury.io/py/heyathena.svg
    :target: https://badge.fury.io/py/heyathena
