@@ -65,14 +65,14 @@ def listen_keyword():
             buf = stream.read(1024, exception_on_overflow=False)
             decoder.process_raw(buf, False, False)
             if decoder.hyp():
-                if decoder.hyp().hypstr[:13] == "athena cancel" or decoder.hyp().hypstr[:11] == "athena stop":
+                if decoder.hyp().hypstr[:13] == "alfred cancel" or decoder.hyp().hypstr[:11] == "alfred stop":
                     decoder.end_utt()
-                    return "athena stop"
+                    return "alfred stop"
                 else:
                     if waiting:
                         if wait_count >= 8:
                             decoder.end_utt()
-                            return "athena"
+                            return "alfred"
                         else:
                             wait_count += 1
                     else:
