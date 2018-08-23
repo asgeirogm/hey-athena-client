@@ -15,7 +15,7 @@ from athena.modules import active as active_mods
 
 # Wake-up Word(s) must be in the sphinx dict file (or else RuntimeError occurs)
 # Change to 'hey athena' if background noise triggering occurs
-WAKE_UP_WORD = "athena"
+WAKE_UP_WORD = "alfred"
 
 # (not implemented yet) active listen until no input is received (for conversation)
 FREQUENT_ACTIVE_LISTEN = True
