@@ -171,8 +171,6 @@ class Brain:
         """ Attempts to match a modules and their tasks """
         self.matched_mods = []
         for mod in mods.mod_lib:
-            if not mod.enabled:
-                continue
             """ Find matched tasks and add to module's task queue """
             mod.task_queue = []
             for task in mod.tasks:

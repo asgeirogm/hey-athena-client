@@ -24,7 +24,8 @@ def find_mods():
                 if inspect.isclass(obj):
                     for parent in obj.__bases__:
                         if 'Module' is parent.__name__:
-                            mod_lib.append(obj())
+                            if obj().enabled:
+                                mod_lib.append(obj())
         except Exception as e:
             print(traceback.format_exc())
             log.error('Error loading \''+name+'\' '+str(e))
