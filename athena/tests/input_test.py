@@ -72,7 +72,7 @@ inputs = {
     'voice_browse' : {
         'en-US' : [
             "tell me about mushrooms",
-            "shut down this browser"
+            "close this browser"
         ]
     },
     'wolfram' : {
