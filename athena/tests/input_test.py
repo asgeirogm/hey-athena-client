@@ -29,7 +29,8 @@ inputs = {
     'geo_info' : {
         'en-US' : [
             "what city am I in",
-            "what time is it"
+            "what time is it",
+            "what is my location"
         ]
     },
     'google' : {
