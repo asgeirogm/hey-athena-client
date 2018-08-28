@@ -8,7 +8,7 @@ Usage Examples:
 
 from athena.classes.module import Module
 from athena.classes.task import ActiveTask
-from athena import brain, log
+from athena import brain, log, mods
 
 
 class QuitTask(ActiveTask):
@@ -26,7 +26,7 @@ class ListModulesTask(ActiveTask):
         super(ListModulesTask, self).__init__(words=['list modules', 'list mods'])
 
     def action(self, text):
-        brain.inst.list_mods()
+        mods.list_mods()
 
 
 class ToggleModuleTask(ActiveTask):
@@ -42,10 +42,10 @@ class ToggleModuleTask(ActiveTask):
         mod_name = self.module.lower().strip().replace(' ', '')
         if 'disable' in self.enable.lower() or 'remove' in self.enable.lower():
             log.info("Attempting to disable '"+mod_name+"'")
-            brain.inst.disable_mod(mod_name)
+            mods.disable_mod(mod_name)
         else:
             log.info("Attempting to enable '"+mod_name+"'")
-            brain.inst.enable_mod(mod_name)
+            mods.enable_mod(mod_name)
 
 
 class AthenaControl(Module):
