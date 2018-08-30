@@ -5,12 +5,18 @@ Basic Text-To-Speech tools are stored here
 import tempfile
 import os
 import pygame
+import re
 
 from requests.exceptions import HTTPError
 from gtts import gTTS
 from pygame import mixer
 from athena import settings, log
 
+RESPONSE_REPLACEMENTS = {
+    'en' : {
+        "(?<=\d)[.](?=\d)" : " point "          # If a '.' (period) has an integer on both sides, replace with ' point '
+    }
+}
 
 def init():
     """ Initialize the pygame mixer """
@@ -53,6 +59,9 @@ def speak(phrase, cache=False, filename='default', show_text=True, log_text=True
 
     try:
         phrase = phrase[:settings.MAX_CHAR]
+        for regex, replacement in RESPONSE_REPLACEMENTS[settings.LANG_CODE].items():
+            phrase = re.sub(regex, replacement, phrase)
+        
         tts = gTTS(text=phrase, lang=settings.LANG_CODE)
 
         if not cache:

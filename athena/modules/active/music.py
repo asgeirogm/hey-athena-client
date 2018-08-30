@@ -9,18 +9,28 @@ Usage Examples:
 from athena.classes.module import Module
 from athena.classes.task import ActiveTask
 from athena.tts import play_mp3
+from athena.mods import get_from_dict
 
 # Checks 'media' folder by default
 TURN_UP_SONG = 'godj.wav'
 
+ENABLED = True
 
 class PlaySongTask(ActiveTask):
+        
+    triggers = {
+        'en-US' : [r'.*\b(get turnt|turn up|play.*music)\b.*']
+    }
+    
+    response = {
+        'en' : "Turning up..."
+    }
 
     def __init__(self):
-        super(PlaySongTask, self).__init__(patterns=[r'.*\b(get turnt|turn up|play.*music)\b.*'])
+        super(PlaySongTask, self).__init__(patterns=get_from_dict(self.triggers, ENABLED))
 
     def action(self, text):
-        self.speak('Turning up...')
+        self.speak(get_from_dict(self.response, ENABLED, is_response=True))
         play_mp3(TURN_UP_SONG)
 
 
@@ -28,4 +38,4 @@ class Music(Module):
 
     def __init__(self):
         tasks = [PlaySongTask()]
-        super(Music, self).__init__('music', tasks, priority=2)
+        super(Music, self).__init__('music', tasks, priority=2, enabled=ENABLED)

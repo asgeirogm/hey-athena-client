@@ -8,13 +8,19 @@ Usage Examples:
 
 from athena.classes.module import Module
 from athena.classes.task import ActiveTask
-from athena import brain, log, mods
+from athena import brain, log, mods, settings
+from athena.mods import get_from_dict
 
+ENABLED = True
 
 class QuitTask(ActiveTask):
 
+    triggers = {
+        'en-US' : [r'\b(alfred )?(quit|stop)\b.*']
+    }
+
     def __init__(self):
-        super(QuitTask, self).__init__(patterns=[r'\b(alfred )?(quit|stop)\b.*'])
+         super(QuitTask, self).__init__(patterns=get_from_dict(self.triggers, ENABLED))
 
     def action(self, text):
         brain.inst.quit()
@@ -22,8 +28,12 @@ class QuitTask(ActiveTask):
 
 class ListModulesTask(ActiveTask):
 
+    triggers = {
+        'en-US' : ['list modules', 'list mods']
+    }
+
     def __init__(self):
-        super(ListModulesTask, self).__init__(words=['list modules', 'list mods'])
+        super(ListModulesTask, self).__init__(words=get_from_dict(self.triggers, ENABLED))
 
     def action(self, text):
         mods.list_mods()
@@ -31,8 +41,16 @@ class ListModulesTask(ActiveTask):
 
 class ToggleModuleTask(ActiveTask):
 
+    disable_triggers = {
+        'en-US' : ['disable','remove']
+    }
+
+    triggers = {
+        'en-US' : [r'.*\b(enable|add|{}) (.*)'.format('|'.join(get_from_dict(disable_triggers, ENABLED)))]
+    }
+
     def __init__(self):
-        super(ToggleModuleTask, self).__init__(patterns=[r'.*\b(enable|add|disable|remove) (.*)'])
+        super(ToggleModuleTask, self).__init__(patterns=get_from_dict(self.triggers, ENABLED))
         self.groups = {1: 'enable', 2: 'module'}
 
     def match(self, text):
@@ -40,7 +58,14 @@ class ToggleModuleTask(ActiveTask):
 
     def action(self, text):
         mod_name = self.module.lower().strip().replace(' ', '')
-        if 'disable' in self.enable.lower() or 'remove' in self.enable.lower():
+        
+        should_disable = False
+        for disable_trigger in get_from_dict(self.disable_triggers, ENABLED):
+            if disable_trigger in self.enable.lower():
+                should_disable = True
+                break
+
+        if should_disable:
             log.info("Attempting to disable '"+mod_name+"'")
             mods.disable_mod(mod_name)
         else:
@@ -52,4 +77,4 @@ class AthenaControl(Module):
 
     def __init__(self):
         tasks = [QuitTask(), ListModulesTask(), ToggleModuleTask()]
-        super(AthenaControl, self).__init__('athena_control', tasks, priority=3)
+        super(AthenaControl, self).__init__('athena_control', tasks, priority=3, enabled=ENABLED)

@@ -54,3 +54,12 @@ def enable_mod(name):
         if name in mod.name:
             log.info('Enabling: '+name+'\n')
             mod.enabled = True
+
+def get_from_dict(dict, enabled=True, is_response=False):
+    if enabled:
+        if not is_response:
+            return dict[settings.LANG_4CODE]
+        else:
+            return dict[settings.LANG_CODE]
+    else:
+        return []

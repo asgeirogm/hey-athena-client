@@ -97,9 +97,21 @@ KEYPHRASES =       join(CLIENT_DIR, 'keyphrases.txt')
 #####################
 #     RESPONSES     #
 #####################
-ERROR =      "Something went wrong. Would you like to see the error message?"
-NO_MODULES = "I'm not sure how to respond to that."
-NO_MIC =     "I couldn't connect to a microphone."
+RESPONSES = {
+    'en' : {
+        'error'      : "Something went wrong. Would you like to see the error message?",
+        'no_modules' : "I'm not sure how to respond to that.",
+        'no_mic'     : "I couldn't connect to a microphone."
+    },
+    'is' : {
+        'error'      : "Eitthvað fór úrskeiðis. Viltu sjá villuskilaboðin?",
+        'no_modules' : "Ég náði þessu ekki alveg hjá þér.",
+        'no_mic'     : "Hljóðnemi finnst ekki."
+    }
+}
+ERROR =      RESPONSES[LANG_CODE]['error']
+NO_MODULES = RESPONSES[LANG_CODE]['no_modules']
+NO_MIC =     RESPONSES[LANG_CODE]['no_mic']
 
 #####################
 #     FREE KEYS     #
@@ -113,4 +125,6 @@ CONTACTS = {}
 #####################
 #   BASIC REGEX     #
 #####################
-PHONE_REGEX = r"\b((\(\d{3}\)|\d{3})-?\d{3}-?\d{4})\s?(.*)"
+PHONE_REGEX = {
+    'en-US' : r"\b((\(\d{3}\)|\d{3})-?\d{3}-?\d{4})\s?(.*)"
+}

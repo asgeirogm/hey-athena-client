@@ -9,16 +9,25 @@ Usage Examples:
 from athena.classes.module import Module
 from athena.classes.task import ActiveTask
 from athena.api_library import geo_info_api
+from athena.mods import get_from_dict
 
+ENABLED = True
 
 class GetIPInfoTask(ActiveTask):
 
+    triggers = {
+        'en-US' : ['ip', 'country', 'region', 'city', 'latitude',
+                   'longitude', 'isp', 'internet service provider',
+                   'timezone', 'time', 'where am I', 'where are we',
+                   'location']
+    }
+    
+    response = {
+        'en' : "It\'s currently {}",
+    }
+
     def __init__(self):
-        match_words = ['ip', 'country', 'region', 'city', 'latitude',
-                       'longitude', 'isp', 'internet service provider',
-                       'timezone', 'time', 'where am I', 'where are we',
-                       'location']
-        super(GetIPInfoTask, self).__init__(words=match_words)
+        super(GetIPInfoTask, self).__init__(words=get_from_dict(self.triggers, ENABLED))
 
         # geo_info_api.update_data()
         self.groups = {1: 'query'}
@@ -28,7 +37,7 @@ class GetIPInfoTask(ActiveTask):
 
     def action(self, text):
         if 'time' in self.query:
-            self.speak('It\'s currently'+geo_info_api.time())
+            self.speak(get_from_dict(self.response, ENABLED, is_response=True).format(geo_info_api.time())) 
             return
 
         geo_info_api.update_data()
@@ -39,4 +48,4 @@ class GeoInfo(Module):
 
     def __init__(self):
         tasks = [GetIPInfoTask()]
-        super(GeoInfo, self).__init__('geo_info', tasks, priority=3)
+        super(GeoInfo, self).__init__('geo_info', tasks, priority=3, enabled=ENABLED)

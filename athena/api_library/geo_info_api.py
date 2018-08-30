@@ -6,16 +6,23 @@ A tool for retrieving geographical info based on external IP
 import requests
 
 from time import strftime
+from athena.mods import get_from_dict
 
 URL = 'http://ip-api.com/json'
 ALIASES = {
-    'state':        'regionName',
-    'zip code':     'zip',
-    'latitude':     'lat',
-    'longitude':    'lon',
-    'internet service provider': 'isp',
-    'ip':           'query',
+    'en-US' : {
+        'state':        'regionName',
+        'zip code':     'zip',
+        'latitude':     'lat',
+        'longitude':    'lon',
+        'internet service provider': 'isp',
+        'ip':           'query'
+    }
 }  # Spoken words mapped to actual keys
+
+LOCATION_TRIGGERS = {
+    'en-US' : ['where', 'location']
+}
 
 response = None
 
@@ -54,11 +61,12 @@ def get_data(key):
         | as: AS NUMBER / NAME,
         | query: IP ADDRESS USED FOR QUERY
     """
-    if key in ALIASES:
-        key = ALIASES[key]
-
-    if 'where' in key.lower() or 'location' in key.lower():
-        return location()
+    if key in get_from_dict(ALIASES):
+        key = get_from_dict(ALIASES)[key]
+    
+    for location_trigger in get_from_dict(LOCATION_TRIGGERS):
+        if location_trigger in key.lower():
+            return location()
 
     if key not in response:
         return None

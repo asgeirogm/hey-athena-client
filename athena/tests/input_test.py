@@ -6,7 +6,7 @@ print('---- Running Input Test ----')
 import traceback
 import time
 
-from athena import settings
+from athena import settings, mods
 from athena.brain import Brain
 
 settings.USE_STT = False
@@ -86,15 +86,17 @@ inputs = {
 passed = True
 
 try:
-    for module, phrases in inputs.items():
-        print("-------------------------------------")
-        print("Testing {} module".format(module))
-        print("-------------------------------------")
-        for phrase in phrases[settings.LANG_4CODE]:
-            print()
-            print("Test phrase: '{}'".format(phrase))
-            my_brain.match_mods(phrase)
-            my_brain.execute_mods(phrase)
+    for mod in mods.mod_lib:
+        if mod.name in inputs:
+            phrases = inputs[mod.name]
+            print("-------------------------------------")
+            print("Testing {} module".format(mod.name))
+            print("-------------------------------------")
+            for phrase in phrases[settings.LANG_4CODE]:
+                print()
+                print("Test phrase: '{}'".format(phrase))
+                my_brain.match_mods(phrase)
+                my_brain.execute_mods(phrase)
     print('---- TEST PASSED ----\n')
 except:
     passed = False

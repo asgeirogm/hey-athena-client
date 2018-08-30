@@ -10,13 +10,19 @@ import re
 from athena.classes.module import Module
 from athena.classes.task import ActiveTask
 from athena.apis import api_lib
+from athena.mods import get_from_dict
 from athena import settings
 
+ENABLED = True
 
 class SendTextTask(ActiveTask):
 
+    triggers = {
+        'en-US' : [r'.*\btext (.*)']
+    }
+
     def __init__(self):
-        super(SendTextTask, self).__init__(patterns=[r'.*\btext (.*)'])
+        super(SendTextTask, self).__init__(patterns=get_from_dict(self.triggers, ENABLED))
         self.groups = {1: 'msg'}
 
     def match(self, text):
@@ -30,12 +36,11 @@ class SendTextTask(ActiveTask):
                     break
 
         num = None
-        num_match = re.match(settings.PHONE_REGEX, self.msg)
+        num_match = re.match(get_from_dict(settings.PHONE_REGEX, ENABLED), self.msg)
         if num_match:
             num = num_match.group(1).replace('(', '').replace(')', '').replace('-', '')
             self.msg = num_match.group(3)
 
-        self.msg += ' - from Athena'
         api_lib['sms_text_api'].send_text(self.msg, num)
 
 
@@ -43,4 +48,4 @@ class SmsText(Module):
 
     def __init__(self):
         tasks = [SendTextTask()]
-        super(SmsText, self).__init__('sms_text', tasks, priority=3)
+        super(SmsText, self).__init__('sms_text', tasks, priority=3, enabled=ENABLED)
