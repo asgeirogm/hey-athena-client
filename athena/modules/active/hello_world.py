@@ -16,13 +16,17 @@ class SpeakPhrase(ActiveTask):
     triggers = {
         'en-US' : ['eat', 'food', 'type']
     }
+    
+    response = {
+        'en' : "You should eat Mexican food tonight"
+    }
 
     def __init__(self):
         # Matches any statement with these words
         super(SpeakPhrase, self).__init__(words=get_from_dict(self.triggers, ENABLED))
 
     def action(self, text):
-        self.speak('You should eat Mexican food tonight')
+        self.speak(get_from_dict(self.response, ENABLED, is_response=True))
 
 
 # This is a bare-minimum module
