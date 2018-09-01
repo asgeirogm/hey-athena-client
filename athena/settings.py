@@ -44,6 +44,9 @@ LANGS = ['af', 'sq', 'ar', 'hy', 'ca', 'zh-CN', 'zh-TW', 'hr', 'cs',
 LANG_CODE = 'en'
 LANG_4CODE = 'en-US'  # LCID String
 
+# Time format for output. Choices are [12, 24] 
+TIME_FORMAT = 24
+
 #####################
 #    DIRECTORIES    #
 #####################

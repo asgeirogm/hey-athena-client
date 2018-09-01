@@ -7,6 +7,7 @@ import requests
 
 from time import strftime
 from athena.mods import get_from_dict
+from athena import settings
 
 URL = 'http://ip-api.com/json'
 
@@ -25,7 +26,10 @@ def location():
 
 
 def time():
-    return strftime('%I:%M %p').lstrip('0')
+    if settings.TIME_FORMAT == 12:
+        return strftime('%I:%M %p').lstrip('0')
+    elif settings.TIME_FORMAT == 24:
+        return strftime('%H:%M').lstrip('0')
 
 
 def get_data(key):
