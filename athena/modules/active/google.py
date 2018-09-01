@@ -21,7 +21,9 @@ class AnswerTask(ActiveTask):
 
     triggers = {
         'en-US' : [r".*\b((who|what|when|where|why|how)(\')?(s)?|" +
-                  r"(can|are|is|will|define|show me|say))\b.*"]
+                  r"(can|are|is|will|define|show me|say))\b.*"],
+        'is'    : [r".*\b((hver|hvað|hvenær|hvar|afhverju|hvernig)(\')?(s)?|" +
+                  r"(getur|gat|eru|er|verður|skilgreindu|sýndu mér|segðu))\b.*"]
     }
 
     def __init__(self):

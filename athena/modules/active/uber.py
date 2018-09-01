@@ -16,11 +16,13 @@ ENABLED = True
 class CallUberTask(ActiveTask):
 
     triggers = {
-        'en-US' : [r"^\b(order|call|request)(?: me)? ((an |a )?(lyft|uber|taxi|limo)).*"]
+        'en-US' : [r"^\b(order|call|request)(?: me)? ((an |a )?(lyft|uber|taxi|limo)).*"],
+        'is'    : [r"^\b(panta(?:ðu)?|hringdu á)(?: fyrir mig)? (leigubíl|taxa|úber|limósínu).*"]
     }
     
     response = {
-        'en' : "Requesting {} for you."
+        'en' : "Requesting {} for you.",
+        'is' : "Græja {} fyrir þig.",
     }
 
     def __init__(self):
@@ -38,11 +40,13 @@ class CallUberTask(ActiveTask):
 class CancelUberTask(ActiveTask):
 
     triggers = {
-        'en-US' : [r".*\b(cancel.*(order|request|uber|lyft))\b.*"]
+        'en-US' : [r".*\b(cancel.*(order|request|uber|lyft))\b.*"],
+        'is'    : [r".*\b(hætt(?:a|u).*(pöntun(?:ina)?|leigubíl(?:inn)?|taxa(?:ann)?|úber(?:inn)?|limósínu(?:na)?))\b.*"]
     }
     
     response = {
-        'en' : "Canceling ride sharing request."
+        'en' : "Canceling ride sharing request.",
+        'is' : "Hætti við pöntun."
     }
 
     def __init__(self):

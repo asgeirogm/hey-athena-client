@@ -18,7 +18,8 @@ ENABLED = True
 class SendTextTask(ActiveTask):
 
     triggers = {
-        'en-US' : [r'.*\btext (.*)']
+        'en-US' : [r'.*\btext (.*)'],
+        'is'    : [r'.*\bsend(?:a|u) sms(?: á|til)?(.*)']
     }
 
     def __init__(self):

@@ -16,7 +16,8 @@ ENABLED = True
 class QuitTask(ActiveTask):
 
     triggers = {
-        'en-US' : [r'\b(alfred )?(quit|stop)\b.*']
+        'en-US' : [r'\b(alfred )?(quit|stop)\b.*'],
+        'is'    : [r'\b(alfred )?(stopp|stoppa)\b.*']
     }
 
     def __init__(self):
@@ -29,7 +30,8 @@ class QuitTask(ActiveTask):
 class ListModulesTask(ActiveTask):
 
     triggers = {
-        'en-US' : ['list modules', 'list mods']
+        'en-US' : ['list modules', 'list mods'],
+        'is' : ['lista af einingum', 'sýndu mér einingarnar']
     }
 
     def __init__(self):
@@ -42,11 +44,13 @@ class ListModulesTask(ActiveTask):
 class ToggleModuleTask(ActiveTask):
 
     disable_triggers = {
-        'en-US' : ['disable','remove']
+        'en-US' : ['disable','remove'],
+        'is'    : ['afvirkja','aftengja','fjarlægja']
     }
 
     triggers = {
-        'en-US' : [r'.*\b(enable|add|{}) (.*)'.format('|'.join(get_from_dict(disable_triggers, ENABLED)))]
+        'en-US' : [r'.*\b(enable|add|{}) (.*)'.format('|'.join(get_from_dict(disable_triggers, ENABLED)))],
+        'is'    : [r'.*\b(virkja|tengja|bæta við|{}) (.*)'.format('|'.join(get_from_dict(disable_triggers, ENABLED)))]
     }
 
     def __init__(self):
@@ -67,10 +71,12 @@ class ToggleModuleTask(ActiveTask):
 
         if should_disable:
             log.info("Attempting to disable '"+mod_name+"'")
-            mods.disable_mod(mod_name)
+            disable = mods.disable_mod(mod_name)
+            self.speak(disable)
         else:
             log.info("Attempting to enable '"+mod_name+"'")
-            mods.enable_mod(mod_name)
+            enable = mods.enable_mod(mod_name)
+            self.speak(enable)
 
 
 class AthenaControl(Module):

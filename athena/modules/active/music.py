@@ -19,11 +19,13 @@ ENABLED = True
 class PlaySongTask(ActiveTask):
         
     triggers = {
-        'en-US' : [r'.*\b(get turnt|turn up|play.*music)\b.*']
+        'en-US' : [r'.*\b(get turnt|turn up|play.*music)\b.*'],
+        'is'    : [r'.*\b(spila.*tónlist)\b.*'],
     }
     
     response = {
-        'en' : "Turning up..."
+        'en' : "Turning up...",
+        'is' : "Skelli ljúfum tónum á fóninn...",
     }
 
     def __init__(self):

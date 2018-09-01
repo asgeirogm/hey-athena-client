@@ -21,11 +21,15 @@ class SendTweetTask(ActiveTask):
     triggers = {
         'en-US' : [r'.*?\btweet (.+)',
                    r'.*\bpost (.+)\bto twitter\b',
-                   r'.*\bpost to twitter\b(.+)']
+                   r'.*\bpost to twitter\b(.+)'],
+        'is'    : [r'.*?\btístaðu (.+)',
+                   r'.*\bsettu (.+)\bá twitter\b',
+                   r'.*\bsettu á twitter\b(.+)']
     }
     
     response = {
-        'en' : "Sending tweet..."
+        'en' : "Sending tweet...",
+        'is' : "Sendi tíst..."
     }
 
     def __init__(self):

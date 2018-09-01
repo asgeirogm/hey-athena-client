@@ -13,18 +13,25 @@ ENABLED = True
 class OrderSomething(ActiveTask):
 
     triggers = {
-        'en-US' : [r'^\b(order|buy)(?: me)?\b(.*)']
+        'en-US' : [r'^\b(order|buy)(?: me)?\b(.*)'],
+        'is'    : [r'^\b(panta(?:ðu)?|kauptu|kaupa)(?: handa mér|fyrir mig)?\b(.*)'],
     }
     
     response_replacements = {
         'en' : {
             "my" : "your",
             "favor" : "Favor"
+        },
+        'is' : {
+            "mitt" : "þitt",
+            "mín" : "þín",
+            "minn" : "þinn"
         }
     }
 
     response = {
-        'en' : "Getting you {}."
+        'en' : "Getting you {}.",
+        'is' : "Græja fyrir þig {}."
     }
 
     def __init__(self):
@@ -44,11 +51,13 @@ class OrderSomething(ActiveTask):
 class CancelOrder(ActiveTask):
     
     triggers = {
-        'en-US' : [r'.*\b(cancel.*order)\b.*']
+        'en-US' : [r'.*\b(cancel.*order)\b.*'],
+        'is'    : [r'.*\b(hætta.*pöntun(?:ina)?)\b.*']
     }
 
     response = {
-        'en' : "Canceling previous order."
+        'en' : "Canceling previous order.",
+        'is' : "Hætti við síðustu pöntun."
     }
 
     def __init__(self):

@@ -9,20 +9,6 @@ from time import strftime
 from athena.mods import get_from_dict
 
 URL = 'http://ip-api.com/json'
-ALIASES = {
-    'en-US' : {
-        'state':        'regionName',
-        'zip code':     'zip',
-        'latitude':     'lat',
-        'longitude':    'lon',
-        'internet service provider': 'isp',
-        'ip':           'query'
-    }
-}  # Spoken words mapped to actual keys
-
-LOCATION_TRIGGERS = {
-    'en-US' : ['where', 'location']
-}
 
 response = None
 
@@ -61,10 +47,35 @@ def get_data(key):
         | as: AS NUMBER / NAME,
         | query: IP ADDRESS USED FOR QUERY
     """
-    if key in get_from_dict(ALIASES):
-        key = get_from_dict(ALIASES)[key]
+    aliases = {
+        'en-US' : {
+            'state':        'regionName',
+            'zip code':     'zip',
+            'latitude':     'lat',
+            'longitude':    'lon',
+            'internet service provider': 'isp',
+            'ip':           'query'
+        },
+        'is' : {
+            'svæði':        'regionName',
+            'póstnúmer':    'zip',
+            'hæðargráðu':   'lat',
+            'lengdargráðu': 'lon',
+            'símafyrirtæki':'isp',
+            'ip':           'query',
+            'borg':         'city'
+        }
+    }  # Spoken words mapped to actual keys
     
-    for location_trigger in get_from_dict(LOCATION_TRIGGERS):
+    location_triggers = { 
+        'en-US' : ['where', 'location'],
+        'is'    : ['hvar', 'staðsetning']
+    }
+    
+    if key in get_from_dict(aliases):
+        key = get_from_dict(aliases)[key]
+    
+    for location_trigger in get_from_dict(location_triggers):
         if location_trigger in key.lower():
             return location()
 

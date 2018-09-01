@@ -44,6 +44,11 @@ def change_mod_status(name, action):
             'already_done' : "{mod_name} is already {action}d",
             'successful' : "{mod_name} {action}d",
             'unsuccessful' : "Unable to {action} {mod_name}"
+        },
+        'is' : {
+            'already_done' : "Aðgerðin' hefur þegar verið framkvæmd á {mod_name}",
+            'successful' : "Aðgerðin á {mod_name} tókst",
+            'unsuccessful' : "Aðgerðin á {mod_name} tókst ekki"
         }
     }
     

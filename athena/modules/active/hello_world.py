@@ -14,11 +14,13 @@ ENABLED = True
 class SpeakPhrase(ActiveTask):
 
     triggers = {
-        'en-US' : ['eat', 'food', 'type']
+        'en-US' : ['eat', 'food', 'type'],
+        'is'    : ['borða', 'mat(?:ur)?']
     }
     
     response = {
-        'en' : "You should eat Mexican food tonight"
+        'en' : "You should eat Mexican food tonight",
+        'is' : "Þú ættir að borða mexíkanskan mat í kvöld"
     }
 
     def __init__(self):
