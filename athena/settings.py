@@ -41,8 +41,8 @@ LANGS = ['af', 'sq', 'ar', 'hy', 'ca', 'zh-CN', 'zh-TW', 'hr', 'cs',
 """
 # Lang Code/LCID reference: http://www.science.co.il/language/Locale-codes.php
 # NOTE: Changing this only changes STT & TTS (not module pattern matching)
-LANG_CODE = 'en'
-LANG_4CODE = 'en-US'  # LCID String
+LANG_CODE = 'is'
+LANG_4CODE = 'is'  # LCID String
 
 # Time format for output. Choices are [12, 24] 
 TIME_FORMAT = 24
