@@ -36,7 +36,7 @@ class SendTextTask(ActiveTask):
                     break
 
         num = None
-        num_match = re.match(get_from_dict(settings.PHONE_REGEX, ENABLED), self.msg)
+        num_match = re.match(settings.PHONE_REGEX, self.msg)
         if num_match:
             num = num_match.group(1).replace('(', '').replace(')', '').replace('-', '')
             self.msg = num_match.group(3)
