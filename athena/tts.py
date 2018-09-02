@@ -15,6 +15,9 @@ from athena import settings, log
 RESPONSE_REPLACEMENTS = {
     'en' : {
         "(?<=\d)[.](?=\d)" : " point "          # If a '.' (period) has an integer on both sides, replace with ' point '
+    },
+    'is' : {
+        "(?<=\d)[.](?=\d)" : " komma "          # If a '.' (period) has an integer on both sides, replace with ' point '
     }
 }
 
