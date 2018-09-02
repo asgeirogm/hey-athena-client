@@ -7,38 +7,69 @@ Usage Examples:
 
 from athena.classes.module import Module
 from athena.classes.task import ActiveTask
-
+from athena.mods import get_from_dict
+ENABLED = True
 
 class OrderSomething(ActiveTask):
 
+    triggers = {
+        'en-US' : [r'^\b(order|buy)(?: me)?\b(.*)'],
+        'is'    : [r'^\b(panta(?:ðu)?|kauptu|kaupa)(?: handa mér|fyrir mig)?\b(.*)'],
+    }
+    
+    response_replacements = {
+        'en' : {
+            "my" : "your",
+            "favor" : "Favor"
+        },
+        'is' : {
+            "mitt" : "þitt",
+            "mín" : "þín",
+            "minn" : "þinn"
+        }
+    }
+
+    response = {
+        'en' : "Getting you {}.",
+        'is' : "Græja fyrir þig {}."
+    }
+
     def __init__(self):
         # Matches any statement with these words
-        super(OrderSomething, self).__init__(patterns=[r'^\b(order|buy)(?: me)?\b(.*)'])
+        super(OrderSomething, self).__init__(patterns=get_from_dict(self.triggers, ENABLED))
 
     def match(self, text):
         return self.match_and_save_groups(text, {1: 'verb', 2: 'thing'})
 
     def action(self, text):
-        self.thing = self.thing.replace('my', 'your')
-        self.thing = self.thing.replace('favor', 'Favor')
-        if self.verb.lower() == "order":
-            return ('shop', 'Ordering you '+self.thing+'.')
-        return ('shop', 'Buying you '+self.thing+'.')
+        for target, replacement in get_from_dict(self.response_replacements, ENABLED, is_response=True).items():
+            self.thing = self.thing.replace(target, replacement)
+
+        return ('shop', get_from_dict(self.response, ENABLED, is_response=True).format(self.thing))
 
 
 class CancelOrder(ActiveTask):
+    
+    triggers = {
+        'en-US' : [r'.*\b(cancel.*order)\b.*'],
+        'is'    : [r'.*\b(hætta.*pöntun(?:ina)?)\b.*']
+    }
+
+    response = {
+        'en' : "Canceling previous order.",
+        'is' : "Hætti við síðustu pöntun."
+    }
 
     def __init__(self):
         # Matches any statement with these words
-        super(CancelOrder, self).__init__(patterns=[r'.*\b(cancel.*order)\b.*'])
+        super(CancelOrder, self).__init__(patterns=get_from_dict(self.triggers, ENABLED))
 
     def action(self, text):
-        return ('shop', 'Canceling previous order.')
+        return ('shop', get_from_dict(self.response, ENABLED, is_response=True))
 
 
-# This is a bare-minimum module
-class HelloWorld(Module):
+class Shop(Module):
 
     def __init__(self):
         tasks = [OrderSomething(), CancelOrder()]
-        super(HelloWorld, self).__init__('shop', tasks, priority=2)
+        super(Shop, self).__init__('shop', tasks, priority=2, enabled=ENABLED)

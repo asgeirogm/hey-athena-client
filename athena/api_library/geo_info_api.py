@@ -6,16 +6,10 @@ A tool for retrieving geographical info based on external IP
 import requests
 
 from time import strftime
+from athena.mods import get_from_dict
+from athena import settings
 
 URL = 'http://ip-api.com/json'
-ALIASES = {
-    'state':        'regionName',
-    'zip code':     'zip',
-    'latitude':     'lat',
-    'longitude':    'lon',
-    'internet service provider': 'isp',
-    'ip':           'query',
-}  # Spoken words mapped to actual keys
 
 response = None
 
@@ -32,7 +26,10 @@ def location():
 
 
 def time():
-    return strftime('%I:%M %p').lstrip('0')
+    if settings.TIME_FORMAT == 12:
+        return strftime('%I:%M %p').lstrip('0')
+    elif settings.TIME_FORMAT == 24:
+        return strftime('%H:%M').lstrip('0')
 
 
 def get_data(key):
@@ -54,11 +51,37 @@ def get_data(key):
         | as: AS NUMBER / NAME,
         | query: IP ADDRESS USED FOR QUERY
     """
-    if key in ALIASES:
-        key = ALIASES[key]
-
-    if 'where' in key.lower() or 'location' in key.lower():
-        return location()
+    aliases = {
+        'en-US' : {
+            'state':        'regionName',
+            'zip code':     'zip',
+            'latitude':     'lat',
+            'longitude':    'lon',
+            'internet service provider': 'isp',
+            'ip':           'query'
+        },
+        'is' : {
+            'svæði':        'regionName',
+            'póstnúmer':    'zip',
+            'hæðargráðu':   'lat',
+            'lengdargráðu': 'lon',
+            'símafyrirtæki':'isp',
+            'ip':           'query',
+            'borg':         'city'
+        }
+    }  # Spoken words mapped to actual keys
+    
+    location_triggers = { 
+        'en-US' : ['where', 'location'],
+        'is'    : ['hvar', 'staðsetning']
+    }
+    
+    if key in get_from_dict(aliases):
+        key = get_from_dict(aliases)[key]
+    
+    for location_trigger in get_from_dict(location_triggers):
+        if location_trigger in key.lower():
+            return location()
 
     if key not in response:
         return None

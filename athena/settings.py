@@ -15,7 +15,7 @@ from athena.modules import active as active_mods
 
 # Wake-up Word(s) must be in the sphinx dict file (or else RuntimeError occurs)
 # Change to 'hey athena' if background noise triggering occurs
-WAKE_UP_WORD = "athena"
+WAKE_UP_WORD = "alfred"
 
 # (not implemented yet) active listen until no input is received (for conversation)
 FREQUENT_ACTIVE_LISTEN = True
@@ -41,8 +41,11 @@ LANGS = ['af', 'sq', 'ar', 'hy', 'ca', 'zh-CN', 'zh-TW', 'hr', 'cs',
 """
 # Lang Code/LCID reference: http://www.science.co.il/language/Locale-codes.php
 # NOTE: Changing this only changes STT & TTS (not module pattern matching)
-LANG_CODE = 'en'
-LANG_4CODE = 'en-US'  # LCID String
+LANG_CODE = 'is'
+LANG_4CODE = 'is'  # LCID String
+
+# Time format for output. Choices are [12, 24] 
+TIME_FORMAT = 24
 
 #####################
 #    DIRECTORIES    #
@@ -97,9 +100,21 @@ KEYPHRASES =       join(CLIENT_DIR, 'keyphrases.txt')
 #####################
 #     RESPONSES     #
 #####################
-ERROR =      "Something went wrong. Would you like to see the error message?"
-NO_MODULES = "I'm not sure how to respond to that."
-NO_MIC =     "I couldn't connect to a microphone."
+RESPONSES = {
+    'en' : {
+        'error'      : "Something went wrong. Would you like to see the error message?",
+        'no_modules' : "I'm not sure how to respond to that.",
+        'no_mic'     : "I couldn't connect to a microphone."
+    },
+    'is' : {
+        'error'      : "Eitthvað fór úrskeiðis. Viltu sjá villuskilaboðin?",
+        'no_modules' : "Ég náði þessu ekki alveg hjá þér.",
+        'no_mic'     : "Hljóðnemi finnst ekki."
+    }
+}
+ERROR =      RESPONSES[LANG_CODE]['error']
+NO_MODULES = RESPONSES[LANG_CODE]['no_modules']
+NO_MIC =     RESPONSES[LANG_CODE]['no_mic']
 
 #####################
 #     FREE KEYS     #
