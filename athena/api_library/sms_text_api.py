@@ -8,6 +8,7 @@ from athena.classes.api import Api
 from athena.apis import api_lib
 
 URL = 'http://textbelt.com/text'
+KEY = 'your-key'
 
 
 class SmsTextApi(Api):
@@ -24,6 +25,6 @@ class SmsTextApi(Api):
                 print('\n~ I could not find a default phone number.\n')
                 return
         print('\n~ Sending text to '+str(number)+'...\n')
-        params = {'number': number, 'message': text}
+        params = {'number': number, 'message': text, key : KEY}
         resp = requests.post(URL, params)
         print('~ SMS Text success? '+str(resp)+'\n')
