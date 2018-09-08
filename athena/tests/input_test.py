@@ -25,14 +25,6 @@ INPUTS = {
             "virkja voice browse"
         ]
     },
-    'conversation' : {
-        'en-US' : [
-            "why"
-        ],
-        'is' : [
-            "segðu mér brandara"
-        ]
-    },
     'geo_info' : {
         'en-US' : [
             "what city am I in",

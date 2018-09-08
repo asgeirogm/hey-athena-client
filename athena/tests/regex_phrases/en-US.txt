@@ -30,32 +30,6 @@ enable voice browse
 add voice browse
 
 
-::conversation
-:ConversationTask
-make me laugh
-hello
-what's up
-how are you
-rofl
-thanks
-why not
-because why
-okay
-test
-yo
-no
-nope
-wrong
-nice
-cool
-interesting
-nothing
-nevermind
-aliens exist
-aliens don't exist
-are there aliens in space
-
-
 ::geo_info
 :GetIPInfoTask
 what's my ip address

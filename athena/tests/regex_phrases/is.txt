@@ -33,16 +33,6 @@ bæta við voice browse
 fjarlægja voice browse
 
 
-::conversation
-:ConversationTask
-segðu mér brandara
-ekkert
-skiptir ekki máli
-það skiptir ekki máli
-skiptir engu
-ekki neitt
-
-
 ::geo_info
 :GetIPInfoTask
 hvað er ip addressan mín
