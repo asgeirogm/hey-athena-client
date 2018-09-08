@@ -78,7 +78,9 @@ RESPONSES = {
     },
     'is' : {
         r'.*\b(brandara)\b.*':
-            ["kauptu þér brjóstahaldara"]
+            ["kauptu þér brjóstahaldara"],
+        r'^\b(ekkert|(það )?skiptir (ekki máli|engu)|ekki neitt)\b.*':
+            ['Ekkert mál vinur'],
     }
 }
 

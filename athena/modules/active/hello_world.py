@@ -14,8 +14,8 @@ ENABLED = True
 class SpeakPhrase(ActiveTask):
 
     triggers = {
-        'en-US' : ['eat', 'food', 'type'],
-        'is'    : ['borða', 'mat(?:ur)?']
+        'en-US' : ['eat', 'food'],
+        'is'    : ['borða', 'mat(?:ur|inn)?']
     }
     
     response = {

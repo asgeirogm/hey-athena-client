@@ -1,0 +1,101 @@
+# This file contains phrases used to test that the regexes are working
+# is intended. The format of this file must be in the following manner:
+# [linebreak] 
+# [linebreak]
+# ::expected module_name
+# :expected task_name of module_name
+# phrase (one per line)
+# [linebreak]
+# :expected task_name of module_name
+# phrase (one per line)
+#
+# and so on...
+
+
+::athena_control
+:QuitTask
+alfred quit
+alfred stop
+quit
+stop
+
+:ListModulesTask
+list modules
+list mods
+
+:ToggleModuleTask
+disable voice browse
+remove voice browse
+enable voice browse
+add voice browse
+
+
+::conversation
+:ConversationTask
+make me laugh
+hello
+what's up
+how are you
+rofl
+thanks
+why not
+because why
+okay
+test
+yo
+no
+nope
+wrong
+nice
+cool
+interesting
+nothing
+nevermind
+aliens exist
+aliens don't exist
+are there aliens in space
+
+
+::geo_info
+:GetIPInfoTask
+what's my ip address
+what country am i in
+what region am i in
+what city am i in
+what is my latitude
+what is my longitude
+what is my isp
+what is my timezone
+what time is it
+where am i
+where are we
+what is my location
+
+
+::hello_world
+:SpeakPhrase
+what should I eat tonight
+what food do i want
+
+
+::voice_browse
+:VoiceBrowseTask
+search for dogs
+look up giraffes
+go to facebook.com
+type boogie boo
+close this tab
+close the tab
+close this page
+close the page
+shut the tab
+close this browser
+close the browser
+shut the browser
+delete
+delete everything
+clear the address bar
+maximize the window
+click
+next tab
+switch the page 

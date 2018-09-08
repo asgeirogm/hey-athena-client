@@ -122,7 +122,7 @@ class Brain:
             if task.greedy:
                 break
 
-    def execute_mods(self, text):
+    def execute_mods(self, text, no_execution=False):
         """ Executes the modules in prioritized order """
         if len(self.matched_mods) <= 0:
             tts.speak(settings.NO_MODULES)
@@ -149,12 +149,19 @@ class Brain:
         elif len(greedy_mods) > 1:
             if 0 < len(normal_mods):
                 print('\n~ Matched mods (non-greedy): '+str([mod.name for mod in normal_mods])[1:-1]+'\n')
-            m = self.mod_select(greedy_mods)
-            if not m:
-                return
-            normal_mods.append(m)
-        for mod in normal_mods:
-            self.execute_tasks(mod, text)
+            if no_execution:
+                normal_mods.extend(greedy_mods)
+            else:
+                m = self.mod_select(greedy_mods)
+                if not m:
+                    return
+                normal_mods.append(m)
+        
+        if no_execution:
+            return normal_mods
+        else:
+            for mod in normal_mods:
+                self.execute_tasks(mod, text)
 
     def mod_select(self, mods):
         """ Prompt user to specify which module to use to respond """

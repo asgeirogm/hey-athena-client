@@ -17,7 +17,7 @@ class QuitTask(ActiveTask):
 
     triggers = {
         'en-US' : [r'\b(alfred )?(quit|stop)\b.*'],
-        'is'    : [r'\b(alfred )?(stopp|stoppa)\b.*']
+        'is'    : [r'\b(alfred )?stopp.*']
     }
 
     def __init__(self):
@@ -31,7 +31,7 @@ class ListModulesTask(ActiveTask):
 
     triggers = {
         'en-US' : ['list modules', 'list mods'],
-        'is' : ['lista af einingum', 'sýndu mér einingarnar']
+        'is' : ['.*lista(?:nn)? af einingum', 'sýndu mér einingarnar']
     }
 
     def __init__(self):
@@ -45,7 +45,7 @@ class ToggleModuleTask(ActiveTask):
 
     disable_triggers = {
         'en-US' : ['disable','remove'],
-        'is'    : ['afvirkja','aftengja','fjarlægja']
+        'is'    : ['af(?:virkja|tengja)','fjarlægja']
     }
 
     triggers = {

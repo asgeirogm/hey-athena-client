@@ -30,8 +30,8 @@ class VoiceBrowseTask(ActiveTask):
             r'.*\b(?:next|switch the) (tab|page)\b.*'
         ],
         'is' : [
-            r'.*\b(?:leita(?:ðu)?(?: að)?|fletta up|segðu mér um)\b(.*)',
-            r'.*\b(?:farðu á|opna(?:ðu)?) (.*\.(com|org|net|edu|gov|io|html|is|dk))\b',
+            r'.*\b(?:leita(?:ðu)?(?: að)?|flett(?:a|u) upp|segðu mér um)\b(.*)',
+            r'.*\b(?:far(?:a|ðu) á|opna(?:ðu)?) (.*\.(com|org|net|edu|gov|io|html|is|dk))\b',
             r'.*\b(?:skrifa)(?:ðu)?\b(.*)',
             r'.*\b(?:loka(?:ðu)?)(?: þessum| þessari)? (flipa|glugga|síðu)\b.*',
             r'.*\b(?:loka(?:ðu)?)(?: þessum)? (vafra)(?:num)?\b.*',

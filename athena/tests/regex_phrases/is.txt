@@ -1,0 +1,99 @@
+# This file contains phrases used to test that the regexes are working
+# is intended. The format of this file must be in the following manner:
+# [linebreak] 
+# [linebreak]
+# ::expected module_name
+# :expected task_name of module_name
+# phrase (one per line)
+# [linebreak]
+# :expected task_name of module_name
+# phrase (one per line)
+#
+# and so on...
+
+
+::athena_control
+:QuitTask
+alfred stopp
+stopp
+stoppa
+stoppaðu
+
+:ListModulesTask
+sýndu mér lista af einingum
+lista af einingum
+sýndu mér einingarnar
+
+:ToggleModuleTask
+afvirkja voice browse
+aftengja voice browse
+virkja voice browse
+tengja voice browse
+bæta við voice browse
+fjarlægja voice browse
+
+
+::conversation
+:ConversationTask
+segðu mér brandara
+ekkert
+skiptir ekki máli
+það skiptir ekki máli
+skiptir engu
+ekki neitt
+
+
+::geo_info
+:GetIPInfoTask
+hvað er ip addressan mín
+hvað er æp addressan mín
+í hvaða landi er ég
+á hvað svæði er ég
+í hvaða borg er ég
+í hvaða bæ er ég
+á hvaða hæðargráðu er ég
+á hvaða lengdargráðu er ég
+hjá hvaða símafyrirtæki er ég
+hjá hvaða netfyrirtæki er ég
+á hvaða tímasvæði er ég
+hvað er klukkan
+hvar er ég
+hvar erum við
+hvar er ég staðsettur
+hver er staðsetning mín
+í hvaða póstnúmeri er ég
+
+
+::hello_world
+:SpeakPhrase
+hvað á ég að borða í kvöld
+hvað á ég að hafa í matinn
+
+
+::voice_browse
+:VoiceBrowseTask
+leitaðu að hundum
+fletta upp gíröffum
+farðu á facebook.com
+farðu á mbl.is
+opna dv.is
+opnaðu dr.dk
+skrifaðu bréf
+loka þessum glugga
+loka þessum flipa
+lokaðu þessum flipa
+lokaðu þessari síðu
+loka þessum vafra
+lokaðu þessum vafra
+lokaðu vafranum
+eyða þessum texta
+strokaðu þetta út
+hreinsa þetta út
+hreinsa út
+stækka
+stækkaðu gluggann
+klikkaðu
+næsta flipa
+næsta glugga
+næstu síðu
+skiptu um síðu
