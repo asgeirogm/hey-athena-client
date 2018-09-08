@@ -69,16 +69,6 @@ INPUTS = {
             "spila tónlist"
         ]
     },
-    'shop' : {
-        'en-US' : [
-            "order me a hundred biycle tires",
-            "cancel my last bicycle tire order",
-        ],
-        'is' : [
-            "pantaðu handa mér hundrað dekk undir hjól",
-            "hætta við síðustu pöntunina mína",
-        ]
-    },
     'sms_text' : {
         'en-US' : [
             "text my mom that I have rabies"
@@ -93,16 +83,6 @@ INPUTS = {
         ],
         'is' : [
             "settu ég er nýbúinn að týna happa höfrungnum mínum á twitter"
-        ]
-    },
-    'uber' : {
-        'en-US' : [
-            "call a taxi for me",
-            "cancel that last request"
-        ],
-        'is' : [
-            "hringdu á leigubíl fyrir mig",
-            "hættu við leigubílinn"
         ]
     },
     'voice_browse' : {
