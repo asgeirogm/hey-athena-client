@@ -115,14 +115,6 @@ INPUTS = {
             "lokaðu þessum vafra"
         ]
     },
-    'weather' : {
-        'en-US' : [
-            "what is the temperature in copenhagen"
-        ],
-        'is' : [
-            "Hversu stór er Úranus"
-        ]
-    },
     'wolfram' : {
         'en-US' : [
             "How big is uranus"
