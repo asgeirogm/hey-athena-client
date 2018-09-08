@@ -1,5 +1,7 @@
 """
-A simple test script to see if the brain is responding to input
+A simple test script to see if the brain is responding to input.
+
+Only tasks in enabled modules will be matched.
 """
 print('---- Running Input Test ----')
 
@@ -11,117 +13,126 @@ from athena import settings, mods
 from athena.brain import Brain
 
 INPUTS = {
-        'athena_control' : {
-            'en-US' : [
-                "list modules",
-                "disable voice browse",
-                "enable voice browse"
-            ],
-            'is' : [
-                "lista af einingum",
-                "afvirkja voice browse",
-                "virkja voice browse"
-            ]
-        },
-        'conversation' : {
-            'en-US' : [
-                "why"
-            ],
-            'is' : [
-                "sesdfgðu mér sdfsdbrandara"
-            ]
-        },
-        'geo_info' : {
-            'en-US' : [
-                "what city am I in",
-                "what time is it",
-                "what is my location"
-            ],
-            'is' : [
-                "Í hvaða borg er ég",
-                "hvað er klukkan",
-                "hver er mín staðsetning"
-            ]
-        },
-        'google' : {
-            'en-US' : [
-                "who is the president of america"
-            ],
-            'is' : [
-                "hver er forseti bandaríkjanna"
-            ]
-        },
-        'hello_world' : {
-            'en-US' : [
-                "what kind of food should I eat tonight"
-            ],
-            'is' : [
-                "hvernig mat á ég að borða í kvöld"
-            ]
-        },
-        'music' : {
-            'en-US' : [
-                "play music"
-            ],
-            'is' : [
-                "spila tónlist"
-            ]
-        },
-        'shop' : {
-            'en-US' : [
-                "order me a hundred biycle tires",
-                "cancel my last bicycle tire order",
-            ],
-            'is' : [
-                "pantaðu handa mér hundrað dekk undir hjól",
-                "hætta við síðustu pöntunina mína",
-            ]
-        },
-        'sms_text' : {
-            'en-US' : [
-                "text my mom that I have rabies"
-            ],
-            'is' : [
-                "sendu sms á mömmu um að ég sé með hundaæði"
-            ]
-        },
-        'twitter' : {
-            'en-US' : [
-                "post I just lost my lucky dolphin to twitter"
-            ],
-            'is' : [
-                "settu ég er nýbúinn að týna happa höfrungnum mínum á twitter"
-            ]
-        },
-        'uber' : {
-            'en-US' : [
-                "call a taxi for me",
-                "cancel that last request"
-            ],
-            'is' : [
-                "hringdu á leigubíl fyrir mig",
-                "hættu við leigubílinn"
-            ]
-        },
-        'voice_browse' : {
-            'en-US' : [
-                "tell me about mushrooms",
-                "close this browser"
-            ],
-            'is' : [
-                "segðu mér um sveppi",
-                "lokaðu þessum vafra"
-            ]
-        },
-        'wolfram' : {
-            'en-US' : [
-                "How big is uranus"
-            ],
-            'is' : [
-                "Hversu stór er Úranus"
-            ]
-        }
+    'athena_control' : {
+        'en-US' : [
+            "list modules",
+            "disable voice browse",
+            "enable voice browse"
+        ],
+        'is' : [
+            "lista af einingum",
+            "afvirkja voice browse",
+            "virkja voice browse"
+        ]
+    },
+    'conversation' : {
+        'en-US' : [
+            "why"
+        ],
+        'is' : [
+            "segðu mér brandara"
+        ]
+    },
+    'geo_info' : {
+        'en-US' : [
+            "what city am I in",
+            "what time is it",
+            "what is my location"
+        ],
+        'is' : [
+            "Í hvaða borg er ég",
+            "hvað er klukkan",
+            "hver er mín staðsetning"
+        ]
+    },
+    'google' : {
+        'en-US' : [
+            "who is the president of america"
+        ],
+        'is' : [
+            "hver er forseti bandaríkjanna"
+        ]
+    },
+    'hello_world' : {
+        'en-US' : [
+            "what kind of food should I eat tonight"
+        ],
+        'is' : [
+            "hvernig mat á ég að borða í kvöld"
+        ]
+    },
+    'music' : {
+        'en-US' : [
+            "play music"
+        ],
+        'is' : [
+            "spila tónlist"
+        ]
+    },
+    'shop' : {
+        'en-US' : [
+            "order me a hundred biycle tires",
+            "cancel my last bicycle tire order",
+        ],
+        'is' : [
+            "pantaðu handa mér hundrað dekk undir hjól",
+            "hætta við síðustu pöntunina mína",
+        ]
+    },
+    'sms_text' : {
+        'en-US' : [
+            "text my mom that I have rabies"
+        ],
+        'is' : [
+            "sendu sms á mömmu um að ég sé með hundaæði"
+        ]
+    },
+    'twitter' : {
+        'en-US' : [
+            "post I just lost my lucky dolphin to twitter"
+        ],
+        'is' : [
+            "settu ég er nýbúinn að týna happa höfrungnum mínum á twitter"
+        ]
+    },
+    'uber' : {
+        'en-US' : [
+            "call a taxi for me",
+            "cancel that last request"
+        ],
+        'is' : [
+            "hringdu á leigubíl fyrir mig",
+            "hættu við leigubílinn"
+        ]
+    },
+    'voice_browse' : {
+        'en-US' : [
+            "tell me about mushrooms",
+            "close this browser"
+        ],
+        'is' : [
+            "segðu mér um sveppi",
+            "lokaðu þessum vafra"
+        ]
+    },
+    'weather' : {
+        'en-US' : [
+            "what is the temperature in copenhagen"
+        ],
+        'is' : [
+            "Hversu stór er Úranus"
+        ]
+    },
+    'wolfram' : {
+        'en-US' : [
+            "How big is uranus"
+        ],
+        'is' : [
+            "Hversu stór er Úranus"
+        ]
     }
+}
+
 
 def main():
     parser = argparse.ArgumentParser(formatter_class=argparse.ArgumentDefaultsHelpFormatter)

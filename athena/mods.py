@@ -37,6 +37,7 @@ def list_mods():
     global mod_lib
     log.info('Module Order: '+str([mod.name for mod in mod_lib])[1:-1]+'\n')
 
+
 def change_mod_status(name, action):
     global mod_lib
     response = {
@@ -51,7 +52,7 @@ def change_mod_status(name, action):
             'unsuccessful' : "Aðgerðin á {mod_name} tókst ekki"
         }
     }
-    
+
     action_already_done = False
     success = False
     for mod in mod_lib:
@@ -78,13 +79,16 @@ def change_mod_status(name, action):
                                                                    action=action)
     return resp
 
+
 def disable_mod(name):
     """ Attempts to disable the specified mod """
     return change_mod_status(name, 'disable')
-    
+
+
 def enable_mod(name):
     """ Attempts to enable the specified mod """
     return change_mod_status(name, 'enable')
+
 
 def get_from_dict(dict, enabled=True, is_response=False):
     if enabled:
