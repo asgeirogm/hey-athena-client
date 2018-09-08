@@ -30,22 +30,6 @@ enable voice browse
 add voice browse
 
 
-::geo_info
-:GetIPInfoTask
-what's my ip address
-what country am i in
-what region am i in
-what city am i in
-what is my latitude
-what is my longitude
-what is my isp
-what is my timezone
-what time is it
-where am i
-where are we
-what is my location
-
-
 ::hello_world
 :SpeakPhrase
 what should I eat tonight

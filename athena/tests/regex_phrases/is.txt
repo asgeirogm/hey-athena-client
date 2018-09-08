@@ -33,27 +33,6 @@ bæta við voice browse
 fjarlægja voice browse
 
 
-::geo_info
-:GetIPInfoTask
-hvað er ip addressan mín
-hvað er æp addressan mín
-í hvaða landi er ég
-á hvað svæði er ég
-í hvaða borg er ég
-í hvaða bæ er ég
-á hvaða hæðargráðu er ég
-á hvaða lengdargráðu er ég
-hjá hvaða símafyrirtæki er ég
-hjá hvaða netfyrirtæki er ég
-á hvaða tímasvæði er ég
-hvað er klukkan
-hvar er ég
-hvar erum við
-hvar er ég staðsettur
-hver er staðsetning mín
-í hvaða póstnúmeri er ég
-
-
 ::hello_world
 :SpeakPhrase
 hvað á ég að borða í kvöld
